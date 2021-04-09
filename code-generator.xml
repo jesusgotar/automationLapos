@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<codeTemplateList>
+    <templates>
+        <templates version="1.3">
+            <id>41db3c55-808a-4507-835a-d388f65465f3</id>
+            <name>WebElement Accesors</name>
+            <fileNamePattern>.*\.java$</fileNamePattern>
+            <type>body</type>
+            <enabled>true</enabled>
+            <template>#foreach( $member in $fields1 )
+#set($name = $member.name)
+#set($capname = $StringUtil.capitalizeWithJavaBeanConvention($name))
+public boolean isDisplayed${capname}() {
+    LOGGER.info("Validando visibilidad de ${name}");
+    return isDisplayed(${name});
+}
+
+public boolean isDisplayedWithText${capname}(String text) {
+    LOGGER.info("Validando visibilidad de ${name} con texto " + text);
+    return isDisplayedWithText(${name}, text);
+}
+
+public boolean isEnabled${capname}() {
+    LOGGER.info("Validando si ${name} esta habilitado");
+    return isEnabled(${name});
+}
+
+public boolean isDisabled${capname}() {
+    LOGGER.info("Validando si ${name} esta deshabilitado");
+    return isDisabled(${name});
+}
+
+public void type${capname}(String text) {
+    LOGGER.info("Escribiendo en ${name}");
+    type(${name}, text);
+}
+
+public void tap${capname}() {
+    LOGGER.info("Tap en ${name}");
+    tap(${name});
+}
+#end
+</template>
+            <fileEncoding>UTF-8</fileEncoding>
+            <pipeline>
+                <memberSelection>
+                    <filterConstantField>true</filterConstantField>
+                    <filterEnumField>false</filterEnumField>
+                    <filterTransientModifier>false</filterTransientModifier>
+                    <filterStaticModifier>true</filterStaticModifier>
+                    <filterLoggers>true</filterLoggers>
+                    <filterFieldName></filterFieldName>
+                    <filterFieldType></filterFieldType>
+                    <filterMethodName></filterMethodName>
+                    <filterMethodType></filterMethodType>
+                    <enableMethods>false</enableMethods>
+                    <providerTemplate>## set `availableMembers` to provide the members to select
+## set `selectedMembers` to select the members initially, set nothing to select all
+## Note that it should be type List&lt;PsiMember&gt; or List&lt;MemberEntry&gt;
+## And the selected result will be
+## - fields1:  List&lt;FieldEntry&gt; where `1` is the step number that you specified
+## - methods1: List&lt;MethodEntry&gt;
+## - members:  List&lt;MemberEntry&gt;
+#set($availableMembers = $class0.members)
+</providerTemplate>
+                    <allowMultiSelection>true</allowMultiSelection>
+                    <allowEmptySelection>true</allowEmptySelection>
+                    <sortElements>0</sortElements>
+                    <postfix>1</postfix>
+                    <enabled>true</enabled>
+                </memberSelection>
+            </pipeline>
+            <insertNewMethodOption>AT_THE_END_OF_A_CLASS</insertNewMethodOption>
+            <whenDuplicatesOption>ASK</whenDuplicatesOption>
+            <jumpToMethod>true</jumpToMethod>
+            <classNameVm>$class0.name</classNameVm>
+            <alwaysPromptForPackage>false</alwaysPromptForPackage>
+        </templates>
+    </templates>
+</codeTemplateList>
